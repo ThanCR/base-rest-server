@@ -1,1 +1,7 @@
-const interaction = 
+class Interaction{
+    
+}
+
+module.exports = {
+    Interaction
+}
