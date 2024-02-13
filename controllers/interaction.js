@@ -7,8 +7,9 @@ const interactionGetAll = async (req, res) => {
     try {
         res.status(200).json(interactionData)
     } catch (error) {
-        console.log(error)
+        res.status(500).json(error)
     }
+    console.log(`GET ALL REQUEST - ${res.statusCode}`)
 }
 
 const interactionGet = async (req, res) => {
@@ -42,6 +43,7 @@ const interactionGet = async (req, res) => {
         })
     }
 
+    console.log(`GET REQUEST - ${res.statusCode}`)
 }
 
 const interactionPost = async (req, res) => {
@@ -67,6 +69,7 @@ const interactionPost = async (req, res) => {
         })
         console.log(e);
     }
+    console.log(`POST REQUEST - ${res.statusCode}`)
 }
 
 module.exports = {
