@@ -1,16 +1,17 @@
 const {Router} = require('express')
-const {interactionGetAll, interactionGet, interactionPost} = require('../controllers/interaction')
+const {getAllInteractions, getInteraction, postInteraction, getRecentInteractions} = require('../controllers/interaction')
 
 
 const router = Router();
 
 
-router.get('/', interactionGetAll)
+router.get('/', getAllInteractions)
+router.get('/recent/:amount', getRecentInteractions)
 // 83d25f7d6ad
 // 00921e658a8
 // 1f18c709eb2
-router.get('/:id', interactionGet)
-router.post('/', interactionPost)
+router.get('/:id', getInteraction)
+router.post('/', postInteraction)
 
 module.exports = router
 

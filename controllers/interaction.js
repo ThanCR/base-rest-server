@@ -3,7 +3,7 @@ const interactionData = require('../data/interactions-data.json')
 const { uid } = require('uid')
 const fs = require('node:fs')
 
-const interactionGetAll = async (req, res) => {
+const getAllInteractions = async (req, res) => {
     try {
         res.status(200).json(interactionData)
     } catch (error) {
@@ -12,7 +12,7 @@ const interactionGetAll = async (req, res) => {
     console.log(`GET ALL REQUEST - ${res.statusCode}`)
 }
 
-const interactionGet = async (req, res) => {
+const getInteraction = async (req, res) => {
     const id = req.params.id
     try {
         var result = {}
@@ -45,8 +45,19 @@ const interactionGet = async (req, res) => {
 
     console.log(`GET REQUEST - ${res.statusCode}`)
 }
+const getRecentInteractions = async (req, res) => {
+    const recentAmount = req.params.amount
+    try {
+        const orderedInteractions = interactionData.sort((a, b) => new Date(a.datetime) - new Date(b.datetime))
+        const recentInteractions = orderedInteractions.slice(orderedInteractions.length-recentAmount)
+        res.status(200).json(recentInteractions)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+    console.log(`GET RECENT REQUEST - ${res.statusCode}`)
+}
 
-const interactionPost = async (req, res) => {
+const postInteraction = async (req, res) => {
     try {
         const { type, date } = req.body
         if (type != undefined || type != "" || date != undefined || date != "") {
@@ -73,7 +84,8 @@ const interactionPost = async (req, res) => {
 }
 
 module.exports = {
-    interactionGetAll,
-    interactionGet,
-    interactionPost
+    getAllInteractions,
+    getInteraction,
+    postInteraction,
+    getRecentInteractions
 }
